@@ -1,49 +1,49 @@
-var messages = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
-var names = ['Артем', 'Марья', 'Василий', 'Савелий', 'Валентина', 'Игорь'];
-var comments = [];
-var photos = [];
+let messages = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.', 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.', 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
+let names = ['Артем', 'Марья', 'Василий', 'Савелий', 'Валентина', 'Игорь'];
+let comments = [];
+let photos = [];
 
-function getRndInteger(min, max) {
+function getRandomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function getRandomArrayElement(array) {
-  return array[getRndInteger(0, array.length - 1)];
+  return array[getRandomInteger(0, array.length - 1)];
 }
 
-for (var i = 0; i <= getRndInteger(1, 4); i++) {
-  var comment = {
-    avatar: 'img/avatar-' + getRndInteger(1, 6) + '.svg',
+for (let i = 0; i <= getRandomInteger(1, 4); i++) {
+  const comment = {
+    avatar: `img/avatar getRandomInteger(1, 6) .svg`,
     message: getRandomArrayElement(messages),
     name: getRandomArrayElement(names)
   }
   comments.push(comment)
 }
 
-for (var i = 0; i < 25; i++) {
-  var object = {
+for (let i = 0; i < 25; i++) {
+  const object = {
     url: 'photos/' + i + '.jpg',
-    likes: getRndInteger(15, 200),
+    likes: getRandomInteger(15, 200),
     description: ' aaaa',
     comments: comments
   }
   photos.push(object)
 }
 
-var allUserPicture = document.querySelector('.pictures');
-var userPictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+let allUserPicture = document.querySelector('.pictures');
+let userPictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-var getUserPicture = function(photos) {
-  var userPicture = userPictureTemplate.cloneNode(true);
-  var pictureImg = userPicture.querySelector('.picture__img');
-  var image = photos.url;
+let getUserPicture = function(photos) {
+  let userPicture = userPictureTemplate.cloneNode(true);
+  let pictureImg = userPicture.querySelector('.picture__img');
+  let image = photos.url;
   pictureImg.setAttribute('src', image);
   userPicture.querySelector('.picture__comments').textContent = photos.comments;
   userPicture.querySelector('.picture__likes').textContent = photos.likes;
 
  return userPicture;
 }
-var fragment = document.createDocumentFragment();
+let fragment = document.createDocumentFragment();
 for ( i = 1; i < photos.length; i++) {
   fragment.appendChild(getUserPicture(photos[i]));
 }
