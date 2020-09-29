@@ -13,7 +13,7 @@ function getRandomArrayElement(array) {
   return array[getRandomInteger(0, array.length - 1)];
 }
 
-for (let i = 0; i <= getRandomInteger(1, 4); i++) {
+for (let i = 0; i <= getRandomInteger(1, 10); i++) {
   const comment = {
     avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
     message: getRandomArrayElement(messages),
@@ -50,3 +50,32 @@ for (let i = 1; i < photos.length; i++) {
   fragment.appendChild(getUserPicture(photos[i]));
 }
 allUserPicture.appendChild(fragment);
+
+
+const bigPicture = document.querySelector(`.big-picture`);
+
+bigPicture.classList.remove (`hidden`);
+bigPicture.querySelector(`.comments-count`).textContent = comments.length;
+bigPicture.querySelector(`.likes-count`).textContent = photos[1].likes;
+
+const bigPictureImg = bigPicture.querySelector(`.big-picture__img`)
+bigPictureImg.setAttribute(`src`, photos[1].url);
+
+const socialComment = bigPicture.querySelector(`.social__comment`);
+const socialCommentClone = socialComment.cloneNode(true);
+const socialComments = bigPicture.querySelector(`.social__comments`);
+
+socialComments.appendChild(socialCommentClone);
+
+const socialPicture = socialCommentClone.querySelector(`.social__picture`);
+socialPicture.setAttribute(`src`, comments[1].avatar);
+socialPicture.setAttribute(`alt`, comments[1].name);
+socialCommentClone.querySelector(`.social__text`).textContent = comments[1].message;
+bigPicture.querySelector(`.social__caption`).textContent = photos[1].description;
+
+const socialCommentCount = bigPicture.querySelector(`.social__comment-count`);
+socialCommentCount.classList.add(`hidden`);
+const socialCommentsLoader = document.querySelector(`.social__comments-loader`);
+socialCommentsLoader.classList.add(`hidden`);
+
+document.body.classList.add(`.modal-open`);
