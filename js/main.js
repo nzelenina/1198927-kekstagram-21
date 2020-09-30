@@ -13,7 +13,7 @@ function getRandomArrayElement(array) {
   return array[getRandomInteger(0, array.length - 1)];
 }
 
-for (let i = 0; i <= getRandomInteger(1, 4); i++) {
+for (let i = 0; i <= getRandomInteger(1, 10); i++) {
   const comment = {
     avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
     message: getRandomArrayElement(messages),
@@ -45,8 +45,46 @@ const getUserPicture = function (photo) {
 
   return userPicture;
 };
+
+
+const bigPicture = document.querySelector(`.big-picture`);
+
+bigPicture.classList.remove(`hidden`);
+bigPicture.querySelector(`.comments-count`).textContent = comments.length;
+bigPicture.querySelector(`.likes-count`).textContent = photos[1].likes;
+
+const bigPictureImg = bigPicture.querySelector(`.big-picture__img`);
+bigPictureImg.setAttribute(`src`, photos[1].url);
 const fragment = document.createDocumentFragment();
 for (let i = 1; i < photos.length; i++) {
   fragment.appendChild(getUserPicture(photos[i]));
 }
 allUserPicture.appendChild(fragment);
+
+
+const socialCommentTemplate = document.querySelector(`#comment`).content.querySelector(`.social__comment`);
+const allSocialComment = bigPicture.querySelector(`.social__comments`);
+
+const getComment = function (comment) {
+  const socialComment = socialCommentTemplate.cloneNode(true);
+  const socialPicture = socialComment.querySelector(`.social__picture`);
+  socialPicture.setAttribute(`src`, comment.avatar);
+  socialPicture.setAttribute(`alt`, comment.name);
+  socialComment.querySelector(`.social__text`).textContent = comment.message;
+  return socialComment;
+};
+const fragmentComment = document.createDocumentFragment();
+for (let i = 1; i < comments.length; i++) {
+  fragmentComment.appendChild(getComment(comments[i]));
+}
+
+allSocialComment.appendChild(fragmentComment);
+
+bigPicture.querySelector(`.social__caption`).textContent = photos[1].description;
+
+const socialCommentCount = bigPicture.querySelector(`.social__comment-count`);
+socialCommentCount.classList.add(`hidden`);
+const socialCommentsLoader = document.querySelector(`.social__comments-loader`);
+socialCommentsLoader.classList.add(`hidden`);
+
+document.body.classList.add(`.modal-open`);
