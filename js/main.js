@@ -45,6 +45,16 @@ const getUserPicture = function (photo) {
 
   return userPicture;
 };
+
+
+const bigPicture = document.querySelector(`.big-picture`);
+
+bigPicture.classList.remove(`hidden`);
+bigPicture.querySelector(`.comments-count`).textContent = comments.length;
+bigPicture.querySelector(`.likes-count`).textContent = photos[1].likes;
+
+const bigPictureImg = bigPicture.querySelector(`.big-picture__img`);
+bigPictureImg.setAttribute(`src`, photos[1].url);
 const fragment = document.createDocumentFragment();
 for (let i = 1; i < photos.length; i++) {
   fragment.appendChild(getUserPicture(photos[i]));
@@ -52,25 +62,24 @@ for (let i = 1; i < photos.length; i++) {
 allUserPicture.appendChild(fragment);
 
 
-const bigPicture = document.querySelector(`.big-picture`);
+const socialCommentTemplate = document.querySelector(`#comment`).content.querySelector(`.social__comment`);
+const allSocialComment = bigPicture.querySelector(`.social__comments`);
 
-bigPicture.classList.remove (`hidden`);
-bigPicture.querySelector(`.comments-count`).textContent = comments.length;
-bigPicture.querySelector(`.likes-count`).textContent = photos[1].likes;
+const getComment = function (comment) {
+  const socialComment = socialCommentTemplate.cloneNode(true);
+  const socialPicture = socialComment.querySelector(`.social__picture`);
+  socialPicture.setAttribute(`src`, comment.avatar);
+  socialPicture.setAttribute(`alt`, comment.name);
+  socialComment.querySelector(`.social__text`).textContent = comment.message;
+  return socialComment;
+};
+const fragmentComment = document.createDocumentFragment();
+for (let i = 1; i < comments.length; i++) {
+  fragmentComment.appendChild(getComment(comments[i]));
+}
 
-const bigPictureImg = bigPicture.querySelector(`.big-picture__img`)
-bigPictureImg.setAttribute(`src`, photos[1].url);
+allSocialComment.appendChild(fragmentComment);
 
-const socialComment = bigPicture.querySelector(`.social__comment`);
-const socialCommentClone = socialComment.cloneNode(true);
-const socialComments = bigPicture.querySelector(`.social__comments`);
-
-socialComments.appendChild(socialCommentClone);
-
-const socialPicture = socialCommentClone.querySelector(`.social__picture`);
-socialPicture.setAttribute(`src`, comments[1].avatar);
-socialPicture.setAttribute(`alt`, comments[1].name);
-socialCommentClone.querySelector(`.social__text`).textContent = comments[1].message;
 bigPicture.querySelector(`.social__caption`).textContent = photos[1].description;
 
 const socialCommentCount = bigPicture.querySelector(`.social__comment-count`);
