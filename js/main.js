@@ -48,7 +48,6 @@ const getUserPicture = function (photo) {
 
 
 const bigPicture = document.querySelector(`.big-picture`);
-
 bigPicture.classList.remove(`hidden`);
 bigPicture.querySelector(`.comments-count`).textContent = comments.length;
 bigPicture.querySelector(`.likes-count`).textContent = photos[1].likes;
@@ -87,4 +86,40 @@ socialCommentCount.classList.add(`hidden`);
 const socialCommentsLoader = document.querySelector(`.social__comments-loader`);
 socialCommentsLoader.classList.add(`hidden`);
 
-document.body.classList.add(`.modal-open`);
+/*закрытие большой картинки*/
+ const closeBigPicture = bigPicture.querySelector(`#picture-cancel`);
+closeBigPicture.addEventListener(`click`, function() {
+  bigPicture.classList.add(`hidden`);
+}
+);
+/*открытие окна редактирования*/
+const body = document.body;
+const uploadFile = document.querySelector(`#upload-file`);
+const imgUpload = document.querySelector(`.img-upload__overlay`);
+
+uploadFile.addEventListener(`change`, function() {
+ imgUpload.classList.remove(`hidden`);
+ body.classList.add(`modal-open`);
+
+}
+  );
+
+/*закрытие окна редактирования*/
+const closeImdUpload = imgUpload.querySelector(`#upload-cancel`);
+closeImdUpload.addEventListener(`click`, function() {
+   imgUpload.classList.add(`hidden`);
+  body.classList.remove(`modal-open`);
+}
+);
+document.addEventListener(`keydown`, function(evt) {
+  if (evt.key === `Escape`) {
+     evt.preventDefault();
+   imgUpload.classList.add(`hidden`);
+  body.classList.remove(`modal-open`);
+}
+}
+);
+/*валидация хэштегов*/
+const textHashtag = document.querySelector(`.text__hashtags`).value;
+console.log(textHashtag);
+
