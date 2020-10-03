@@ -35,7 +35,7 @@ for (let i = 0; i < 25; i++) {
 const allUserPicture = document.querySelector(`.pictures`);
 const userPictureTemplate = document.querySelector(`#picture`).content.querySelector(`.picture`);
 
-const getUserPicture = function (photo) {
+const getUserPicture = function(photo) {
   const userPicture = userPictureTemplate.cloneNode(true);
   const pictureImg = userPicture.querySelector(`.picture__img`);
   const image = photo.url;
@@ -65,7 +65,7 @@ allUserPicture.appendChild(fragment);
 const socialCommentTemplate = document.querySelector(`#comment`).content.querySelector(`.social__comment`);
 const allSocialComment = bigPicture.querySelector(`.social__comments`);
 
-const getComment = function (comment) {
+const getComment = function(comment) {
   const socialComment = socialCommentTemplate.cloneNode(true);
   const socialPicture = socialComment.querySelector(`.social__picture`);
   socialPicture.setAttribute(`src`, comment.avatar);
@@ -90,58 +90,53 @@ socialCommentsLoader.classList.add(`hidden`);
 document.body.classList.add(`.modal-open`);
 /* закрытие большой картинки*/
 const closeBigPicture = bigPicture.querySelector(`#picture-cancel`);
-closeBigPicture.addEventListener(`click`, function () {
+closeBigPicture.addEventListener(`click`, function() {
   bigPicture.classList.add(`hidden`);
-}
-);
+});
 /* открытие окна редактирования*/
 const body = document.body;
 const uploadFile = document.querySelector(`#upload-file`);
 const imgUpload = document.querySelector(`.img-upload__overlay`);
 
-uploadFile.addEventListener(`change`, function () {
+uploadFile.addEventListener(`change`, function() {
   imgUpload.classList.remove(`hidden`);
   body.classList.add(`modal-open`);
 
-}
-);
+});
 /* закрытие окна редактирования*/
 const closeImdUpload = imgUpload.querySelector(`#upload-cancel`);
-closeImdUpload.addEventListener(`click`, function () {
+closeImdUpload.addEventListener(`click`, function() {
   imgUpload.classList.add(`hidden`);
   body.classList.remove(`modal-open`);
-}
-);
-document.addEventListener(`keydown`, function (evt) {
+});
+document.addEventListener(`keydown`, function(evt) {
   if (evt.key === `Escape`) {
     evt.preventDefault();
     imgUpload.classList.add(`hidden`);
     body.classList.remove(`modal-open`);
   }
-}
-);
+});
 /* валидация хэштегов*/
 
 const inputHashtag = document.querySelector(`.text__hashtags`);
-inputHashtag.addEventListener(`input`, function (evt) {
+inputHashtag.addEventListener(`input`, function(evt) {
   const textHashtag = document.querySelector(`.text__hashtags`).value;
   evt.preventDefault();
-  console.log(textHashtag);
-  const hashtags = textHashtag.split(`#`);
-  console.log(hashtags);
+  const hashtags = textHashtag.split(` `);
   const hashtagsLength = hashtags.length;
-  console.log(hashtagsLength);
   const re = /^#[A-zА-я\d]+$/;
-  for (var i = 0; i < hashtags.length; i++) {
-   console.log(re.test(hashtags[i]))
-  }
-  if (hashtagsLength > 5) {
-    inputHashtag.setCustomValidity('не больше 5 хэштегов');
+
+  for (let i = 0; i < hashtags.length; i++) {
+    let isAllHashtagsValid = re.test(hashtags[i]);
+
+    if (isAllHashtagsValid === false) {
+      inputHashtag.setCustomValidity(`неправильный символ`);
+    }
   }
 
+  if (hashtagsLength > 5) {
+    inputHashtag.setCustomValidity(`не больше 5 хэштегов`);
+  }
 
   inputHashtag.reportValidity();
-}
-);
-
-
+});
