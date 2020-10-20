@@ -116,6 +116,7 @@ document.addEventListener(`keydown`, function(evt) {
     body.classList.remove(`modal-open`);
   }
 });
+
 /* валидация хэштегов*/
 
 const inputHashtag = document.querySelector(`.text__hashtags`);
@@ -124,19 +125,47 @@ inputHashtag.addEventListener(`input`, function(evt) {
   evt.preventDefault();
   const hashtags = textHashtag.split(` `);
   const hashtagsLength = hashtags.length;
+  console.log(hashtags);
   const re = /^#[A-zА-я\d]+$/;
 
   for (let i = 0; i < hashtags.length; i++) {
     let isAllHashtagsValid = re.test(hashtags[i]);
+    const hashtagsValuelength = hashtags[i].length;
+    console.log(hashtagsValuelength);
 
     if (isAllHashtagsValid === false) {
       inputHashtag.setCustomValidity(`неправильный символ`);
+      break;
+    } else {
+      inputHashtag.setCustomValidity(``);
+    }
+      if (hashtagsValuelength > 20) {
+       inputHashtag.setCustomValidity(`не больше 20 символов`);
+       break;
+    } else {
+      inputHashtag.setCustomValidity(``);
     }
   }
-
   if (hashtagsLength > 5) {
     inputHashtag.setCustomValidity(`не больше 5 хэштегов`);
   }
-
   inputHashtag.reportValidity();
+  /* проверка на дубликаты */
+const findArrayDuplicates = (arr) => {
+let sorted_arr = arr.slice().sort();
+let results = [];
+for (let i = 0; i < sorted_arr.length - 1; i++) {
+if (sorted_arr[i + 1] === sorted_arr[i]) {
+results.push(sorted_arr[i]);
+}
+}
+return results;
+}
+
+let duplicates = findArrayDuplicates(hashtags)
+
+if (duplicates.length > 0) {
+inputHashtag.setCustomValidity(`хештеги не должны повторяться`);
+}
+
 });
