@@ -35,7 +35,7 @@ for (let i = 0; i < 25; i++) {
 const allUserPicture = document.querySelector(`.pictures`);
 const userPictureTemplate = document.querySelector(`#picture`).content.querySelector(`.picture`);
 
-const getUserPicture = function(photo) {
+const getUserPicture = function (photo) {
   const userPicture = userPictureTemplate.cloneNode(true);
   const pictureImg = userPicture.querySelector(`.picture__img`);
   const image = photo.url;
@@ -65,7 +65,7 @@ allUserPicture.appendChild(fragment);
 const socialCommentTemplate = document.querySelector(`#comment`).content.querySelector(`.social__comment`);
 const allSocialComment = bigPicture.querySelector(`.social__comments`);
 
-const getComment = function(comment) {
+const getComment = function (comment) {
   const socialComment = socialCommentTemplate.cloneNode(true);
   const socialPicture = socialComment.querySelector(`.social__picture`);
   socialPicture.setAttribute(`src`, comment.avatar);
@@ -90,7 +90,7 @@ socialCommentsLoader.classList.add(`hidden`);
 document.body.classList.add(`.modal-open`);
 /* закрытие большой картинки*/
 const closeBigPicture = bigPicture.querySelector(`#picture-cancel`);
-closeBigPicture.addEventListener(`click`, function() {
+closeBigPicture.addEventListener(`click`, function () {
   bigPicture.classList.add(`hidden`);
 });
 /* открытие окна редактирования*/
@@ -98,50 +98,63 @@ const body = document.body;
 const uploadFile = document.querySelector(`#upload-file`);
 const imgUpload = document.querySelector(`.img-upload__overlay`);
 
-uploadFile.addEventListener(`change`, function() {
+uploadFile.addEventListener(`change`, function () {
   imgUpload.classList.remove(`hidden`);
   body.classList.add(`modal-open`);
 
 });
 /* закрытие окна редактирования*/
 const closeImdUpload = imgUpload.querySelector(`#upload-cancel`);
-closeImdUpload.addEventListener(`click`, function() {
+closeImdUpload.addEventListener(`click`, function () {
   imgUpload.classList.add(`hidden`);
   body.classList.remove(`modal-open`);
 });
-document.addEventListener(`keydown`, function(evt) {
+document.addEventListener(`keydown`, function (evt) {
   if (evt.key === `Escape`) {
     evt.preventDefault();
     imgUpload.classList.add(`hidden`);
     body.classList.remove(`modal-open`);
   }
 });
+/* функция проверки на дубликаты*/
+
+const findArrayDuplicates = (arr) => {
+  let sortedArr = arr.slice().sort();
+  let results = [];
+  for (let i = 0; i < sortedArr.length - 1; i++) {
+    if (sortedArr[i + 1] === sortedArr[i]) {
+      results.push(sortedArr[i]);
+    }
+  }
+  return results;
+};
 
 /* валидация хэштегов*/
 
 const inputHashtag = document.querySelector(`.text__hashtags`);
-inputHashtag.addEventListener(`input`, function(evt) {
-  const textHashtag = document.querySelector(`.text__hashtags`).value;
+inputHashtag.addEventListener(`input`, function (evt) {
+  const textHashtag = document.querySelector(`.text__hashtags`).value.trim();
   evt.preventDefault();
   const hashtags = textHashtag.split(` `);
   const hashtagsLength = hashtags.length;
-  console.log(hashtags);
   const re = /^#[A-zА-я\d]+$/;
 
   for (let i = 0; i < hashtags.length; i++) {
-    let isAllHashtagsValid = re.test(hashtags[i]);
+    const isHashtagsValid = re.test(hashtags[i]);
     const hashtagsValuelength = hashtags[i].length;
-    console.log(hashtagsValuelength);
-
-    if (isAllHashtagsValid === false) {
+    if (hashtags[i].substring(0, 1) !== `#`) {
+      inputHashtag.setCustomValidity(`каждый хештег должен начинаться с символа #`);
+      break;
+    }
+    if (isHashtagsValid === false) {
       inputHashtag.setCustomValidity(`неправильный символ`);
       break;
     } else {
       inputHashtag.setCustomValidity(``);
     }
-      if (hashtagsValuelength > 20) {
-       inputHashtag.setCustomValidity(`не больше 20 символов`);
-       break;
+    if (hashtagsValuelength > 20) {
+      inputHashtag.setCustomValidity(`не больше 20 символов`);
+      break;
     } else {
       inputHashtag.setCustomValidity(``);
     }
@@ -149,23 +162,12 @@ inputHashtag.addEventListener(`input`, function(evt) {
   if (hashtagsLength > 5) {
     inputHashtag.setCustomValidity(`не больше 5 хэштегов`);
   }
-  inputHashtag.reportValidity();
+
   /* проверка на дубликаты */
-const findArrayDuplicates = (arr) => {
-let sorted_arr = arr.slice().sort();
-let results = [];
-for (let i = 0; i < sorted_arr.length - 1; i++) {
-if (sorted_arr[i + 1] === sorted_arr[i]) {
-results.push(sorted_arr[i]);
-}
-}
-return results;
-}
 
-let duplicates = findArrayDuplicates(hashtags)
-
-if (duplicates.length > 0) {
-inputHashtag.setCustomValidity(`хештеги не должны повторяться`);
-}
-
+  let duplicates = findArrayDuplicates(hashtags);
+  if (duplicates.length > 0) {
+    inputHashtag.setCustomValidity(`хештеги не должны повторяться`);
+  }
+  inputHashtag.reportValidity();
 });
