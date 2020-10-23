@@ -49,7 +49,6 @@ const getUserPicture = function (photo) {
 
 const bigPicture = document.querySelector(`.big-picture`);
 
-bigPicture.classList.remove(`hidden`);
 bigPicture.querySelector(`.comments-count`).textContent = comments.length;
 bigPicture.querySelector(`.likes-count`).textContent = photos[1].likes;
 
@@ -87,7 +86,7 @@ socialCommentCount.classList.add(`hidden`);
 const socialCommentsLoader = document.querySelector(`.social__comments-loader`);
 socialCommentsLoader.classList.add(`hidden`);
 
-document.body.classList.add(`.modal-open`);
+
 /* закрытие большой картинки*/
 const closeBigPicture = bigPicture.querySelector(`#picture-cancel`);
 closeBigPicture.addEventListener(`click`, function () {
@@ -171,3 +170,105 @@ inputHashtag.addEventListener(`input`, function (evt) {
   }
   inputHashtag.reportValidity();
 });
+/*кнопки + и -*/
+
+const scaleControlValue = document.querySelector(`.scale__control--value`);
+console.log (scaleControlValue.value);
+const imgUploadPreview = document.querySelector(`.img-upload__preview`);
+const scaleControlBigger = document.querySelector(`.scale__control--bigger`);
+
+scaleControlBigger.addEventListener(`click`, function(evt) {
+const currentValue = Number.parseInt (scaleControlValue.value)
+if (currentValue < 100){
+scaleControlValue.value = (currentValue + 25) + `%`;
+const scale = (currentValue + 25) / 100;
+console.log(scaleControlValue.value);
+console.log(scale);
+imgUploadPreview.style.transform = `scale(${scale})`;
+}
+});
+const scaleControlSmaller = document.querySelector(`.scale__control--smaller`);
+
+scaleControlSmaller.addEventListener(`click`, function(evt){
+const currentValue = Number.parseInt (scaleControlValue.value)
+  if (currentValue > 0) {
+scaleControlValue.value = (currentValue) - 25 + `%`;
+const scale = (currentValue - 25) / 100;
+console.log(scale);
+ console.log(scaleControlValue.value);
+ imgUploadPreview.style.transform = `scale(${scale})`;
+}
+});
+/*наложение эффекта*/
+
+let currentEffect = `none`;
+
+  const effectLevel = document.querySelector(`.effect-level`);
+  effectLevel.classList.add (`hidden`);
+  /*функция выбора эффекта*/
+document.querySelector('.effects__list').addEventListener('change', function (evt) {
+  const effectName = evt.target.value
+  imgUploadPreview.classList.remove(`effects__preview--${currentEffect}`);
+  currentEffect =  effectName;
+   imgUploadPreview.classList.add(`effects__preview--${effectName}`);
+ effectLevel.classList.remove(`hidden`);
+});
+
+/* перемещение ползунка*/
+var isDragging = false
+
+/* сохраняем ссылку на пин */
+var pin = document.querySelector('.effect-level__pin')
+
+// сохраняем ссылка на трек(элемент, в котоом живёт и движется пин)
+var track = document.querySelector('.effect-level__line')
+var depth = track.querySelector('.effect-level__depth')
+
+// нажимаем на пин – включаем режим "тащим"
+pin.addEventListener('mousedown', (e) => {
+  isDragging = true
+})
+
+// когда отпускаем кнопку – выключаем режим "тащим"
+document.addEventListener('mouseup', () => {
+  isDragging = false
+})
+ const effectLevelValue = document.querySelector(`.effect-level__value`);
+
+// двигаем мышкой по документу
+document.addEventListener('mousemove', (e) => {
+
+  if (isDragging) {
+    // если режим "тащим" включен, то считаем положение пина
+    let pos = e.pageX - track.getBoundingClientRect().x
+    let percentage = (pos / track.offsetWidth) * 100
+
+    if (percentage < 0) {
+      percentage = 0
+    }
+
+    if (percentage > 100) {
+      percentage = 100
+    }
+
+    pin.style.left = percentage + '%'
+    depth.style.width = percentage + '%'
+    const grayScale = percentage * 1 / 100;
+    console.log(grayScale);
+ /*условие выбранного еффекта*/
+
+     imgUploadPreview.style.filter = `grayscale(${grayScale}`;
+
+
+
+
+ console.log(percentage);
+   effectLevelValue.value = percentage;
+  console.log(effectLevelValue.value);
+
+ }
+});
+/*изменение глубины эффекта*/
+
+
+
