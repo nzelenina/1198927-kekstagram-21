@@ -212,8 +212,8 @@ document.querySelector('.effects__list').addEventListener('change', function (ev
   currentEffect =  effectName;
    imgUploadPreview.classList.add(`effects__preview--${effectName}`);
  effectLevel.classList.remove(`hidden`);
-});
 
+});
 /* перемещение ползунка*/
 var isDragging = false
 
@@ -253,22 +253,36 @@ document.addEventListener('mousemove', (e) => {
 
     pin.style.left = percentage + '%'
     depth.style.width = percentage + '%'
-    const grayScale = percentage * 1 / 100;
-    console.log(grayScale);
- /*условие выбранного еффекта*/
-
-     imgUploadPreview.style.filter = `grayscale(${grayScale}`;
-
-
-
-
- console.log(percentage);
+    console.log(percentage);
+   console.log(percentage);
    effectLevelValue.value = percentage;
   console.log(effectLevelValue.value);
 
+
+ /*условие выбранного еффекта*/
+ if (currentEffect === `chrome`) {
+   const grayScale = percentage * 1 / 100;
+console.log(grayScale);
+imgUploadPreview.style.filter = `grayscale(${grayScale}`;
+};
+ if (currentEffect === `sepia`) {
+   const sepia = percentage * 1 / 100;
+imgUploadPreview.style.filter = `sepia(${sepia}`;
+};
+ if (currentEffect === `marvin`) {
+   const invert = percentage + `%`;
+imgUploadPreview.style.filter = `invert(${invert}`;
+};
+ if (currentEffect === `phobos`) {
+   const blur = percentage * 3 / 100 + `px`;
+imgUploadPreview.style.filter = `blur(${blur}`;
+};
+ if (currentEffect === `heat`) {
+   const brightness = percentage * 3 / 100;
+imgUploadPreview.style.filter = `brightness(${brightness}`;
+};
+
  }
 });
-/*изменение глубины эффекта*/
-
 
 
