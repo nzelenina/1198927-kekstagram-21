@@ -42,10 +42,8 @@ const getUserPicture = function (photo) {
   pictureImg.setAttribute(`src`, image);
   userPicture.querySelector(`.picture__comments`).textContent = photo.comments.length;
   userPicture.querySelector(`.picture__likes`).textContent = photo.likes;
-
   return userPicture;
 };
-
 
 const bigPicture = document.querySelector(`.big-picture`);
 
@@ -59,7 +57,6 @@ for (let i = 1; i < photos.length; i++) {
   fragment.appendChild(getUserPicture(photos[i]));
 }
 allUserPicture.appendChild(fragment);
-
 
 const socialCommentTemplate = document.querySelector(`#comment`).content.querySelector(`.social__comment`);
 const allSocialComment = bigPicture.querySelector(`.social__comments`);
@@ -86,12 +83,12 @@ socialCommentCount.classList.add(`hidden`);
 const socialCommentsLoader = document.querySelector(`.social__comments-loader`);
 socialCommentsLoader.classList.add(`hidden`);
 
-
 /* закрытие большой картинки*/
 const closeBigPicture = bigPicture.querySelector(`#picture-cancel`);
 closeBigPicture.addEventListener(`click`, function () {
   bigPicture.classList.add(`hidden`);
 });
+
 /* открытие окна редактирования*/
 const body = document.body;
 const uploadFile = document.querySelector(`#upload-file`);
@@ -100,14 +97,15 @@ const imgUpload = document.querySelector(`.img-upload__overlay`);
 uploadFile.addEventListener(`change`, function () {
   imgUpload.classList.remove(`hidden`);
   body.classList.add(`modal-open`);
-
 });
+
 /* закрытие окна редактирования*/
 const closeImdUpload = imgUpload.querySelector(`#upload-cancel`);
 closeImdUpload.addEventListener(`click`, function () {
   imgUpload.classList.add(`hidden`);
   body.classList.remove(`modal-open`);
 });
+
 document.addEventListener(`keydown`, function (evt) {
   if (evt.key === `Escape`) {
     evt.preventDefault();
@@ -115,8 +113,8 @@ document.addEventListener(`keydown`, function (evt) {
     body.classList.remove(`modal-open`);
   }
 });
-/* функция проверки на дубликаты*/
 
+/* функция проверки на дубликаты*/
 const findArrayDuplicates = (arr) => {
   let sortedArr = arr.slice().sort();
   let results = [];
@@ -129,7 +127,6 @@ const findArrayDuplicates = (arr) => {
 };
 
 /* валидация хэштегов*/
-
 const inputHashtag = document.querySelector(`.text__hashtags`);
 inputHashtag.addEventListener(`input`, function (evt) {
   const textHashtag = document.querySelector(`.text__hashtags`).value.trim();
@@ -170,119 +167,134 @@ inputHashtag.addEventListener(`input`, function (evt) {
   }
   inputHashtag.reportValidity();
 });
-/*кнопки + и -*/
 
+/* кнопки + и -*/
 const scaleControlValue = document.querySelector(`.scale__control--value`);
-console.log (scaleControlValue.value);
 const imgUploadPreview = document.querySelector(`.img-upload__preview`);
 const scaleControlBigger = document.querySelector(`.scale__control--bigger`);
 
-scaleControlBigger.addEventListener(`click`, function(evt) {
-const currentValue = Number.parseInt (scaleControlValue.value)
-if (currentValue < 100){
-scaleControlValue.value = (currentValue + 25) + `%`;
-const scale = (currentValue + 25) / 100;
-console.log(scaleControlValue.value);
-console.log(scale);
-imgUploadPreview.style.transform = `scale(${scale})`;
+// функция применения размера на фото
+function applyZoom(zoomValue) {
+  scaleControlValue.value = zoomValue + `%`;
+  const scale = zoomValue / 100;
+  imgUploadPreview.style.transform = `scale(${scale})`;
 }
+
+scaleControlBigger.addEventListener(`click`, function (evt) {
+  evt.preventDefault();
+  const currentValue = Number.parseInt(scaleControlValue.value, 10);
+  let nextValue = currentValue + 25;
+  if (nextValue > 100) {
+    nextValue = 100;
+  }
+
+  applyZoom(nextValue);
 });
+
 const scaleControlSmaller = document.querySelector(`.scale__control--smaller`);
+scaleControlSmaller.addEventListener(`click`, function (evt) {
+  evt.preventDefault();
+  const currentValue = Number.parseInt(scaleControlValue.value, 10);
 
-scaleControlSmaller.addEventListener(`click`, function(evt){
-const currentValue = Number.parseInt (scaleControlValue.value)
-  if (currentValue > 0) {
-scaleControlValue.value = (currentValue) - 25 + `%`;
-const scale = (currentValue - 25) / 100;
-console.log(scale);
- console.log(scaleControlValue.value);
- imgUploadPreview.style.transform = `scale(${scale})`;
-}
+  let nextValue = currentValue - 25;
+
+  if (nextValue < 25) {
+    nextValue = 25;
+  }
+
+  applyZoom(nextValue);
 });
-/*наложение эффекта*/
 
+const effectLevelValue = document.querySelector(`.effect-level__value`);
+
+// функция рассчёта значения style для эффекта
+function getEffectStyleValue(effect, sliderValue) {
+  if (effect === `chrome`) {
+    const grayScale = sliderValue * 1 / 100;
+    return `grayscale(${grayScale}`;
+  } else if (effect === `sepia`) {
+    const sepia = sliderValue * 1 / 100;
+    return `sepia(${sepia}`;
+  } else if (effect === `marvin`) {
+    const invert = sliderValue + `%`;
+    return `invert(${invert}`;
+  } else if (effect === `phobos`) {
+    const blur = sliderValue * 3 / 100 + `px`;
+    return `blur(${blur}`;
+  } else if (effect === `heat`) {
+    const brightness = sliderValue * 3 / 100;
+    return `brightness(${brightness}`;
+  }
+  return null;
+}
+
+// применяем эффект на изображение и устанавливаем его в value соответсвующего инпута
+function applyEffectDepth(effect, sliderValue) {
+  effectLevelValue.value = sliderValue;
+  imgUploadPreview.style.filter = getEffectStyleValue(effect, sliderValue);
+}
+
+// функция для установки визуальной позиции слайдера в зависимости от значения
+function setSliderPosition(value) {
+  pin.style.left = value + `%`;
+  depth.style.width = value + `%`;
+}
+/* наложение эффекта*/
 let currentEffect = `none`;
 
-  const effectLevel = document.querySelector(`.effect-level`);
-  effectLevel.classList.add (`hidden`);
-  /*функция выбора эффекта*/
-document.querySelector('.effects__list').addEventListener('change', function (evt) {
-  const effectName = evt.target.value
+const effectLevel = document.querySelector(`.effect-level`);
+effectLevel.classList.add(`hidden`);
+
+/* функция выбора эффекта*/
+document.querySelector(`.effects__list`).addEventListener(`change`, function (evt) {
+  const effectName = evt.target.value;
   imgUploadPreview.classList.remove(`effects__preview--${currentEffect}`);
-  currentEffect =  effectName;
-   imgUploadPreview.classList.add(`effects__preview--${effectName}`);
- effectLevel.classList.remove(`hidden`);
+  currentEffect = effectName;
+  imgUploadPreview.classList.add(`effects__preview--${effectName}`);
 
+  if (effectName !== `none`) {
+    effectLevel.classList.remove(`hidden`);
+  } else {
+    effectLevel.classList.add(`hidden`);
+  }
+
+  applyEffectDepth(currentEffect, 100);
+
+  setSliderPosition(100);
 });
+
 /* перемещение ползунка*/
-var isDragging = false
+let isDragging = false;
 
-/* сохраняем ссылку на пин */
-var pin = document.querySelector('.effect-level__pin')
-
-// сохраняем ссылка на трек(элемент, в котоом живёт и движется пин)
-var track = document.querySelector('.effect-level__line')
-var depth = track.querySelector('.effect-level__depth')
+let pin = document.querySelector(`.effect-level__pin`);
+let track = document.querySelector(`.effect-level__line`);
+let depth = track.querySelector(`.effect-level__depth`);
 
 // нажимаем на пин – включаем режим "тащим"
-pin.addEventListener('mousedown', (e) => {
-  isDragging = true
-})
+pin.addEventListener(`mousedown`, () => {
+  isDragging = true;
+});
 
 // когда отпускаем кнопку – выключаем режим "тащим"
-document.addEventListener('mouseup', () => {
-  isDragging = false
-})
- const effectLevelValue = document.querySelector(`.effect-level__value`);
+document.addEventListener(`mouseup`, () => {
+  isDragging = false;
+});
 
 // двигаем мышкой по документу
-document.addEventListener('mousemove', (e) => {
-
+document.addEventListener(`mousemove`, (e) => {
   if (isDragging) {
-    // если режим "тащим" включен, то считаем положение пина
-    let pos = e.pageX - track.getBoundingClientRect().x
-    let percentage = (pos / track.offsetWidth) * 100
+    let pos = e.pageX - track.getBoundingClientRect().x;
+    let percentage = Math.round((pos / track.offsetWidth) * 100);
 
     if (percentage < 0) {
-      percentage = 0
+      percentage = 0;
     }
 
     if (percentage > 100) {
-      percentage = 100
+      percentage = 100;
     }
 
-    pin.style.left = percentage + '%'
-    depth.style.width = percentage + '%'
-    console.log(percentage);
-   console.log(percentage);
-   effectLevelValue.value = percentage;
-  console.log(effectLevelValue.value);
-
-
- /*условие выбранного еффекта*/
- if (currentEffect === `chrome`) {
-   const grayScale = percentage * 1 / 100;
-console.log(grayScale);
-imgUploadPreview.style.filter = `grayscale(${grayScale}`;
-};
- if (currentEffect === `sepia`) {
-   const sepia = percentage * 1 / 100;
-imgUploadPreview.style.filter = `sepia(${sepia}`;
-};
- if (currentEffect === `marvin`) {
-   const invert = percentage + `%`;
-imgUploadPreview.style.filter = `invert(${invert}`;
-};
- if (currentEffect === `phobos`) {
-   const blur = percentage * 3 / 100 + `px`;
-imgUploadPreview.style.filter = `blur(${blur}`;
-};
- if (currentEffect === `heat`) {
-   const brightness = percentage * 3 / 100;
-imgUploadPreview.style.filter = `brightness(${brightness}`;
-};
-
- }
+    setSliderPosition(percentage);
+    applyEffectDepth(currentEffect, percentage);
+  }
 });
-
-
