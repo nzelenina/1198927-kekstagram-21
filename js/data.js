@@ -40,7 +40,7 @@ const getUserPicture = function (photo) {
   const pictureImg = userPicture.querySelector(`.picture__img`);
   const image = photo.url;
   pictureImg.setAttribute(`src`, image);
-  userPicture.querySelector(`.picture__comments`).textContent = photo.comments.length;
+ // userPicture.querySelector(`.picture__comments`).textContent = photo.comments.length;
   userPicture.querySelector(`.picture__likes`).textContent = photo.likes;
   return userPicture;
 };
@@ -62,7 +62,7 @@ allUserPicture.appendChild(fragment);
 const socialCommentTemplate = document.querySelector(`#comment`).content.querySelector(`.social__comment`);
 const allSocialComment = bigPicture.querySelector(`.social__comments`);
 
-const getComment = function (comment) {
+const getComment = function (comments) {
   const socialComment = socialCommentTemplate.cloneNode(true);
   const socialPicture = socialComment.querySelector(`.social__picture`);
   socialPicture.setAttribute(`src`, comment.avatar);
@@ -70,7 +70,7 @@ const getComment = function (comment) {
   socialComment.querySelector(`.social__text`).textContent = comment.message;
   return socialComment;
 };
-const applyGetComment = function(comment){
+const applyGetComment = function(comments){
 const fragmentComment = document.createDocumentFragment();
 for (let i = 1; i < comments.length; i++) {
   fragmentComment.appendChild(getComment(comments[i]));
@@ -79,26 +79,26 @@ for (let i = 1; i < comments.length; i++) {
 allSocialComment.appendChild(fragmentComment);
 };
 
-
 bigPicture.querySelector(`.social__caption`).textContent = photos[1].description;
 
 const socialCommentCount = bigPicture.querySelector(`.social__comment-count`);
 socialCommentCount.classList.add(`hidden`);
 const socialCommentsLoader = document.querySelector(`.social__comments-loader`);
 socialCommentsLoader.classList.add(`hidden`);
-
 //замена большого изображения
 // найдем все картинки в разметке
 const pictureImgs = document.querySelectorAll(`.picture__img`);
 console. log(pictureImgs);
 for (let i = 0; i < photos.length; i++) {
 pictureImgs[i].addEventListener('click', function () {
-
+console.log(photos[i]);
 bigPicture.classList.remove(`hidden`)
 body.classList.add(`modal-open`);
 const bigPhoto = document.querySelector(`#big-photo`);
 bigPhoto.setAttribute(`src`, photos[i].url);
 applyGetComment(comments);
+console.log(allSocialComment)
+
 })
-  };
+}
 })();
