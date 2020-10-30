@@ -80,4 +80,9 @@ scaleControlSmaller.addEventListener(`click`, function (evt) {
   }
   applyZoom(nextValue);
 });
+//сообщение об успешной отправке
+const successPostTemplate = document.querySelector(`#success`);
+
+const successPost = successPostTemplate.cloneNode(true);
+imgUpload.appendChild(successPost);
 })();
