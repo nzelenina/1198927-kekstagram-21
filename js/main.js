@@ -17,7 +17,7 @@
     })
 
   // рисуем список изображений
- // renderPicturesList(photos)
+  renderPicturesList(photos)
 
   //сообщение об успешной отправке
   const successPostTemplate = document.querySelector(`#success`);
