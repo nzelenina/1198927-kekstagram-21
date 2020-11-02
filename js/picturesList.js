@@ -28,5 +28,5 @@
     allUserPictures.appendChild(fragment);
   }
 
-  window.allUserPictures = allUserPictures
+  window.allUserPictures = allUserPictures;
 })();
