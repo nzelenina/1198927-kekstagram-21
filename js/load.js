@@ -1,14 +1,14 @@
 'use strict';
-(function() {
-  var URL = 'https://21.javascript.pages.academy/kekstagram/data';
+(function () {
+  const URL = `https://21.javascript.pages.academy/kekstagram/data`;
 
-  window.load = function(onSuccess, onError) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+  window.load = function (onSuccess) {
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = `json`;
 
-    xhr.open('GET', URL);
+    xhr.open(`GET`, URL);
 
-    xhr.addEventListener('load', function() {
+    xhr.addEventListener(`load`, function () {
       onSuccess(xhr.response);
     });
 

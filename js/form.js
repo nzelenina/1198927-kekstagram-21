@@ -1,5 +1,5 @@
 'use strict';
-(function() {
+(function () {
   /* функция проверки на дубликаты*/
   const findArrayDuplicates = (arr) => {
     let sortedArr = arr.slice().sort();
@@ -14,7 +14,7 @@
 
   /* валидация хэштегов*/
   const inputHashtag = document.querySelector(`.text__hashtags`);
-  inputHashtag.addEventListener(`input`, function(evt) {
+  inputHashtag.addEventListener(`input`, function (evt) {
     const textHashtag = document.querySelector(`.text__hashtags`).value.trim();
     evt.preventDefault();
     const hashtags = textHashtag.split(` `);

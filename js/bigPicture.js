@@ -1,15 +1,15 @@
 'use strict';
 
-(function() {
+(function () {
   const bigPicture = document.querySelector(`.big-picture`);
 
-  const bigPhoto = bigPicture.querySelector('#big-photo');
-  const likesElement = bigPicture.querySelector('.likes-count')
+  const bigPhoto = bigPicture.querySelector(`#big-photo`);
+  const likesElement = bigPicture.querySelector(`.likes-count`);
 
   const socialCommentTemplate = document.querySelector(`#comment`).content.querySelector(`.social__comment`);
   const allSocialComment = bigPicture.querySelector(`.social__comments`);
 
-  const renderComment = function(comment) {
+  const renderComment = function (comment) {
     const socialComment = socialCommentTemplate.cloneNode(true);
     const socialPicture = socialComment.querySelector(`.social__picture`);
     socialPicture.setAttribute(`src`, comment.avatar);
@@ -18,7 +18,7 @@
     return socialComment;
   };
 
-  const renderComments = function(comments) {
+  const renderComments = function (comments) {
     const fragmentComment = document.createDocumentFragment();
     for (let i = 1; i < comments.length; i++) {
       fragmentComment.appendChild(renderComment(comments[i]));
@@ -34,17 +34,19 @@
 
   /* закрытие большой картинки*/
   const closeBigPicture = bigPicture.querySelector(`#picture-cancel`);
-  closeBigPicture.addEventListener(`click`, function() {
+  closeBigPicture.addEventListener(`click`, function () {
     bigPicture.classList.add(`hidden`);
-    document.body.classList.remove('modal-open');
+    document.body.classList.remove(`modal-open`);
   });
 
-  window.showFullPhoto = function(photo) {
-    bigPhoto.setAttribute('src', photo.url);
+
+  const showFullPhoto = function (photo) {
+    bigPhoto.setAttribute(`src`, photo.url);
     renderComments(photo.comments);
 
-    likesElement.textContent = photo.likes
-    bigPicture.classList.remove('hidden');
-    document.body.classList.add('modal-open');
-  }
+    likesElement.textContent = photo.likes;
+    bigPicture.classList.remove(`hidden`);
+    document.body.classList.add(`modal-open`);
+  };
+  window.showFullPhoto = showFullPhoto;
 })();

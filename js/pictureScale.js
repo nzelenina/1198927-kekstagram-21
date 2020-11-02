@@ -1,3 +1,4 @@
+'use strict';
 (function () {
   /* кнопки + и -*/
   const scaleControlValue = document.querySelector(`.scale__control--value`);
@@ -7,7 +8,7 @@
   function applyZoom(zoomValue) {
     scaleControlValue.value = zoomValue + `%`;
     const scale = zoomValue / 100;
-    imgUploadPreview.style.transform = `scale(${scale})`;
+    window.imgUploadPreview.style.transform = `scale(${scale})`;
   }
 
   scaleControlBigger.addEventListener(`click`, function (evt) {

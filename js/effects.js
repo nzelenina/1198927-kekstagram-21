@@ -1,8 +1,11 @@
 'use strict';
 
-(function() {
+(function () {
+  const imgUpload = document.querySelector(`.img-upload__overlay`);
+  window.imgUpload = imgUpload;
   const effectLevelValue = document.querySelector(`.effect-level__value`);
-
+  const imgUploadPreview = document.querySelector(`.img-upload__preview`);
+  window.imgUploadPreview = imgUploadPreview;
   // функция рассчёта значения style для эффекта
   function getEffectStyleValue(effect, sliderValue) {
     if (effect === `chrome`) {
@@ -41,9 +44,10 @@
   const effectLevel = document.querySelector(`.effect-level`);
   effectLevel.classList.add(`hidden`);
 
-  /* функция выбора эффекта*/
-  document.querySelector(`.effects__list`).addEventListener(`change`, function(evt) {
+  // функция выбора эффекта
+  document.querySelector(`.effects__list`).addEventListener(`change`, function (evt) {
     const effectName = evt.target.value;
+
     imgUploadPreview.classList.remove(`effects__preview--${currentEffect}`);
     currentEffect = effectName;
     imgUploadPreview.classList.add(`effects__preview--${effectName}`);
