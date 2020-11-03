@@ -1,5 +1,5 @@
 'use strict';
-(function () {
+(function() {
   /* функция проверки на дубликаты*/
   const findArrayDuplicates = (arr) => {
     let sortedArr = arr.slice().sort();
@@ -14,7 +14,8 @@
 
   /* валидация хэштегов*/
   const inputHashtag = document.querySelector(`.text__hashtags`);
-  inputHashtag.addEventListener(`input`, function (evt) {
+  window.inputHashtag = inputHashtag;
+  inputHashtag.addEventListener(`input`, function(evt) {
     const textHashtag = document.querySelector(`.text__hashtags`).value.trim();
     evt.preventDefault();
     const hashtags = textHashtag.split(` `);
@@ -26,16 +27,19 @@
       const hashtagsValuelength = hashtags[i].length;
       if (hashtags[i].substring(0, 1) !== `#`) {
         inputHashtag.setCustomValidity(`каждый хештег должен начинаться с символа #`);
+
         break;
       }
       if (isHashtagsValid === false) {
         inputHashtag.setCustomValidity(`неправильный символ`);
+
         break;
       } else {
         inputHashtag.setCustomValidity(``);
       }
       if (hashtagsValuelength > 20) {
         inputHashtag.setCustomValidity(`не больше 20 символов`);
+
         break;
       } else {
         inputHashtag.setCustomValidity(``);
@@ -43,6 +47,7 @@
     }
     if (hashtagsLength > 5) {
       inputHashtag.setCustomValidity(`не больше 5 хэштегов`);
+
     }
 
     /* проверка на дубликаты */
@@ -50,7 +55,21 @@
     let duplicates = findArrayDuplicates(hashtags);
     if (duplicates.length > 0) {
       inputHashtag.setCustomValidity(`хештеги не должны повторяться`);
+
     }
     inputHashtag.reportValidity();
+
+    // пустое поле-не ошибка
+    if (!inputHashtag.value) {
+      inputHashtag.setCustomValidity(``);
+    }
+
+    // красная рамка
+
+    if (inputHashtag.validationMessage) {
+      inputHashtag.style.outline = 'solid 3px red';
+    } else {
+      inputHashtag.style.outline = 'none';
+    }
   });
 })();

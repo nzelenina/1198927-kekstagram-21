@@ -28,7 +28,7 @@
     return comments;
   }
 
-  for (let i = 1; i <= 25; i++) {
+  /* for (let i = 1; i <= 25; i++) {
     const object = {
       url: `photos/${i}.jpg`,
       likes: getRandomInteger(15, 200),
@@ -38,5 +38,5 @@
     photos.push(object);
   }
 
-  window.photos = photos;
+  window.photos = photos;*/
 })();
