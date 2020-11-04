@@ -28,7 +28,6 @@
     }
     allUserPictures.appendChild(fragment);
   };
-window.load(renderPicturesList(photos));
-  window.renderPicturesList = renderPicturesList;
+window.renderPicturesList = renderPicturesList;
   window.allUserPictures = allUserPictures;
 })();
