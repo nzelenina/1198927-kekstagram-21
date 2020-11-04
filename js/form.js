@@ -1,5 +1,5 @@
 'use strict';
-(function() {
+(function () {
   /* функция проверки на дубликаты*/
   const findArrayDuplicates = (arr) => {
     let sortedArr = arr.slice().sort();
@@ -15,7 +15,7 @@
   /* валидация хэштегов*/
   const inputHashtag = document.querySelector(`.text__hashtags`);
   window.inputHashtag = inputHashtag;
-  inputHashtag.addEventListener(`input`, function(evt) {
+  inputHashtag.addEventListener(`input`, function (evt) {
     const textHashtag = document.querySelector(`.text__hashtags`).value.trim();
     evt.preventDefault();
     const hashtags = textHashtag.split(` `);
@@ -67,9 +67,9 @@
     // красная рамка
 
     if (inputHashtag.validationMessage) {
-      inputHashtag.style.outline = 'solid 3px red';
+      inputHashtag.style.outline = `solid 3px red`;
     } else {
-      inputHashtag.style.outline = 'none';
+      inputHashtag.style.outline = `none`;
     }
   });
 })();
