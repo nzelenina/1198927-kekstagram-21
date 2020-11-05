@@ -17,12 +17,42 @@
     });
 
   // рисуем список изображений
-  window.renderPicturesList(window.photos);
+  // window.renderPicturesList(window.photos);
 
   // сообщение об успешной отправке
-  const successPostTemplate = document.querySelector(`#success`);
-  const successPost = successPostTemplate.content.querySelector(`.success`).cloneNode(true);
-  window.successPost = successPost;
+  const getSuccessMessage = function () {
+    const successPostTemplate = document.querySelector(`#success`);
+    const successPost = successPostTemplate.content.querySelector(`.success`).cloneNode(true);
+    window.successPost = successPost;
+    document.querySelector(`main`).appendChild(window.successPost);
+  };
+  window.getSuccessMessage = getSuccessMessage;
+  // закрытие сообщения
+  const closeSuccessMessage = function () {
+    const successButton = document.querySelector(`.success__button`);
+    successButton.addEventListener(`click`, function (evt) {
+      evt.preventDefault();
+      document.querySelector(`main`).removeChild(window.successPost);
+    });
+  };
+  window.closeSuccessMessage = closeSuccessMessage;
 
+  // сообщение об ошибке
+  const getErrorPost = function () {
+    const errorPostTemplate = document.querySelector(`#error`);
+    const errorPost = errorPostTemplate.content.querySelector(`.error`).cloneNode(true);
+    window.errorPost = errorPost;
+    document.querySelector(`main`).appendChild(window.errorPost);
+  };
+  window.getErrorPost = getErrorPost;
+  // закрытия сообщения об ошибке
+  const closeErrorMessage = function () {
+    const errorButton = document.querySelector(`.error__button`);
+    errorButton.addEventListener(`click`, function (evt) {
+      evt.preventDefault();
+      document.querySelector(`main`).removeChild(window.errorPost);
+    });
+  };
+  window.closeErrorMessage = closeErrorMessage;
 
 })();

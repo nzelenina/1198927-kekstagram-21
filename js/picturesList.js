@@ -20,6 +20,7 @@
     return userPicture;
   };
   window.renderUserPicture = renderUserPicture;
+
   const renderPicturesList = function (photos) {
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < photos.length; i++) {
@@ -29,4 +30,6 @@
   };
   window.renderPicturesList = renderPicturesList;
   window.allUserPictures = allUserPictures;
+
+
 })();
