@@ -23,16 +23,12 @@
     xhr.send();
   };
   window.load(function (response) {
-    (renderPicturesList(photos));
+    (window.renderPicturesList(response));
+    // появляется меню фильтров
+    // window.imgFilter.classList.remove(`img-filters--inactive`);
 
-  }, function (response) {
-    window.errorHandler();
+  }, function () {
+    window.errorHandler(`произошла ошибка`);
   });
-  const renderCommentsLoad = window.load(function (response) {
-    (window.renderComments(comment));
 
-  }, function (response) {
-    (window.errorHandler());
-  });
-  window.renderCommentsLoad = renderCommentsLoad;
 })();

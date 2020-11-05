@@ -30,4 +30,6 @@
   };
   window.renderPicturesList = renderPicturesList;
   window.allUserPictures = allUserPictures;
+
+
 })();

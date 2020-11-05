@@ -22,7 +22,7 @@
   const form = document.querySelector(`#upload-select-image`);
   form.addEventListener(`submit`, function (evt) {
 
-    window.upload(new FormData(form), function (response) {
+    window.upload(new FormData(form), function () {
 
       window.imgUpload.classList.add(`hidden`);
       window.getSuccessMessage();

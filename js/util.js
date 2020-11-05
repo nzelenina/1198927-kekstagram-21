@@ -13,4 +13,10 @@
     document.body.insertAdjacentElement(`afterbegin`, node);
   };
   window.errorHandler = errorHandler;
+  // меню фильтров
+/* const imgFilter = document.querySelector(`.img-filters`);
+window.imgFilter = imgFilter;
+const imgFilterButton = imgFilter.querySelectorAll(`.img-filters__button`);
+const imgFilterActive = imgFilter.querySelector(`.img-filters__button--active`);
+*/
 })();

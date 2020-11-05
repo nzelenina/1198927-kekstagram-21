@@ -31,6 +31,7 @@
   const closeSuccessMessage = function () {
     const successButton = document.querySelector(`.success__button`);
     successButton.addEventListener(`click`, function (evt) {
+      evt.preventDefault();
       document.querySelector(`main`).removeChild(window.successPost);
     });
   };
@@ -48,22 +49,10 @@
   const closeErrorMessage = function () {
     const errorButton = document.querySelector(`.error__button`);
     errorButton.addEventListener(`click`, function (evt) {
+      evt.preventDefault();
       document.querySelector(`main`).removeChild(window.errorPost);
     });
   };
   window.closeErrorMessage = closeErrorMessage;
 
-  // сообщение о сбое загрузки
-  const errorHandler = function (errorMessage) {
-    const node = document.createElement(`div`);
-    node.style = `z-index: 100; margin: 0 auto; text-align: center; background-color: red;`;
-    node.style.position = `absolute`;
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = `30px`;
-
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement(`afterbegin`, node);
-  };
-  window.errorHandler = errorHandler;
 })();

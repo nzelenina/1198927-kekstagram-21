@@ -72,4 +72,32 @@
       inputHashtag.style.outline = `none`;
     }
   });
+
+  // валидация комментариев
+  const inputComment = document.querySelector(`.text__description`);
+  inputComment.addEventListener(`input`, function (evt) {
+    evt.preventDefault();
+    const textComment = inputComment.value.trim();
+    const userComment = textComment.split(``);
+
+
+    if (userComment.length > 140) {
+      inputComment.setCustomValidity(`не больше 140 символов`);
+    } else {
+      inputComment.setCustomValidity(``);
+    }
+    inputComment.reportValidity();
+    // пустое поле-не ошибка
+    if (!inputComment.value) {
+      inputComment.setCustomValidity(``);
+    }
+
+    // красная рамка
+
+    if (inputComment.validationMessage) {
+      inputComment.style.outline = `solid 3px red`;
+    } else {
+      inputComment.style.outline = `none`;
+    }
+  });
 })();
