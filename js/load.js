@@ -25,7 +25,7 @@
   window.load(function (response) {
     (window.renderPicturesList(response));
     // появляется меню фильтров
-    // window.imgFilter.classList.remove(`img-filters--inactive`);
+     window.imgFilter.classList.remove(`img-filters--inactive`);
 
   }, function () {
     window.errorHandler(`произошла ошибка`);
