@@ -14,7 +14,7 @@
   function getRandomArrayElement(array) {
     return array[getRandomInteger(0, array.length - 1)];
   }
-
+  window.getRandomArrayElement = getRandomArrayElement;
   function generateComments() {
     const comments = [];
     window.comments = comments;

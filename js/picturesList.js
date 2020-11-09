@@ -20,9 +20,10 @@
     return userPicture;
   };
   window.renderUserPicture = renderUserPicture;
-
+  const fragment = document.createDocumentFragment();
+  window.fragment = fragment;
   const renderPicturesList = function (photos) {
-    const fragment = document.createDocumentFragment();
+
     for (let i = 0; i < photos.length; i++) {
       fragment.appendChild(renderUserPicture(photos[i]));
     }
@@ -30,6 +31,12 @@
   };
   window.renderPicturesList = renderPicturesList;
   window.allUserPictures = allUserPictures;
-
-
+  // удаление картинок
+  function removePictures() {
+    const pictures = document.querySelectorAll(`.picture`);
+    for (let i = 0; i < pictures.length; i++) {
+      pictures[i].remove();
+    }
+  }
+  window.removePictures = removePictures;
 })();
