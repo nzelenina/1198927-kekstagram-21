@@ -1,6 +1,14 @@
 'use strict';
 
 (function () {
+  function getRandomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function getRandomArrayElement(array) {
+    return array[getRandomInteger(0, array.length - 1)];
+  }
+  window.getRandomArrayElement = getRandomArrayElement;
   const errorHandler = function (errorMessage) {
     const node = document.createElement(`div`);
     node.style = `z-index: 100; margin: 0 auto; text-align: center; background-color: red;`;
@@ -16,5 +24,6 @@
   // меню фильтров
   const imgFilter = document.querySelector(`.img-filters`);
   window.imgFilter = imgFilter;
+
 
 })();

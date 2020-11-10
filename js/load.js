@@ -23,6 +23,7 @@
     xhr.send();
   };
   window.load(function (response) {
+    window.photos = response;
     (window.renderPicturesList(response));
     // появляется меню фильтров
     window.imgFilter.classList.remove(`img-filters--inactive`);
