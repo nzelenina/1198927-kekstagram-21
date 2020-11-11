@@ -39,7 +39,12 @@
     bigPicture.classList.add(`hidden`);
     document.body.classList.remove(`modal-open`);
   });
-
+  document.addEventListener(`keydown`, function (evt) {
+    if (evt.keyCode === 27) {
+      bigPicture.classList.add(`hidden`);
+      document.body.classList.remove(`modal-open`);
+    }
+  });
   const DISPLAY_COMMENTS_COUNT = 5;
 
   // функция, которая возвращает DOM-элементы скрытых комментариев

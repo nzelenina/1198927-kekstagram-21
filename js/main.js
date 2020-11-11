@@ -15,7 +15,12 @@
       imgUpload.classList.add(`hidden`);
       body.classList.remove(`modal-open`);
     });
-
+  document.addEventListener(`keydown`, function (evt) {
+    if (evt.keyCode === 27) {
+      imgUpload.classList.add(`hidden`);
+      body.classList.remove(`modal-open`);
+    }
+  });
   // рисуем список изображений
   // window.renderPicturesList(window.photos);
 
