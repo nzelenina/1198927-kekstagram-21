@@ -25,6 +25,12 @@
     window.upload(new FormData(form), function () {
 
       window.imgUpload.classList.add(`hidden`);
+
+      window.effectName = `none`;
+      window.currentEffect = `none`;
+      window.effectLevel.classList.add(`hidden`);
+      window.inputHashtag.value = ``;
+      window.inputComment.value = ``;
       window.getSuccessMessage();
       window.closeSuccessMessage();
     });

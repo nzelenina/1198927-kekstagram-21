@@ -75,6 +75,7 @@
 
   // валидация комментариев
   const inputComment = document.querySelector(`.text__description`);
+  window.inputComment = inputComment;
   inputComment.addEventListener(`input`, function (evt) {
     evt.preventDefault();
     const textComment = inputComment.value.trim();

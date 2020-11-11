@@ -63,12 +63,27 @@
 
   const filterRandom = document.querySelector(`#filter-random`);
   filterRandom.addEventListener(`click`, filterHandler);
+  filterRandom.addEventListener(`keydown`, function(evt) {
+    if (evt.keyCode === 13) {
+      filterHandler();
+    }
+  })
 
   // сортировка по кол-ву комментариев
   const filterDiscussed = document.querySelector(`#filter-discussed`);
   filterDiscussed.addEventListener(`click`, filterHandler);
+  filterDiscussed.addEventListener(`keydown`, function(evt) {
+    if (evt.keyCode === 13) {
+      filterHandler();
+    }
+  })
 
   // по умолчанию
   const filterDefault = document.querySelector(`#filter-default`);
   filterDefault.addEventListener(`click`, filterHandler);
+  filterDefault.addEventListener(`keydown`, function(evt) {
+    if (evt.keyCode === 13) {
+      filterHandler();
+    }
+  })
 })();

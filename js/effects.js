@@ -6,6 +6,9 @@
   const effectLevelValue = document.querySelector(`.effect-level__value`);
   const imgUploadPreview = document.querySelector(`.img-upload__preview`);
   window.imgUploadPreview = imgUploadPreview;
+  const effectsRadio = document.querySelector(`.effects__radio`).value;
+  window.effectsRadio = effectsRadio;
+  console.log(effectsRadio);
   // функция рассчёта значения style для эффекта
   function getEffectStyleValue(effect, sliderValue) {
     if (effect === `chrome`) {
@@ -25,14 +28,16 @@
       return `brightness(${brightness}`;
     }
     return null;
+
   }
 
   // применяем эффект на изображение и устанавливаем его в value соответсвующего инпута
   function applyEffectDepth(effect, sliderValue) {
     effectLevelValue.value = sliderValue;
     imgUploadPreview.style.filter = getEffectStyleValue(effect, sliderValue);
-  }
 
+  }
+    window.getEffectStyleValue = getEffectStyleValue;
   // функция для установки визуальной позиции слайдера в зависимости от значения
   function setSliderPosition(value) {
     pin.style.left = value + `%`;
@@ -43,11 +48,11 @@
 
   const effectLevel = document.querySelector(`.effect-level`);
   effectLevel.classList.add(`hidden`);
-
+window.effectLevel = effectLevel;
   // функция выбора эффекта
   document.querySelector(`.effects__list`).addEventListener(`change`, function (evt) {
     const effectName = evt.target.value;
-
+window.effectName = effectName;
     imgUploadPreview.classList.remove(`effects__preview--${currentEffect}`);
     currentEffect = effectName;
     imgUploadPreview.classList.add(`effects__preview--${effectName}`);
@@ -96,6 +101,9 @@
 
       setSliderPosition(percentage);
       applyEffectDepth(currentEffect, percentage);
+
+      window.applyEffectDepth = applyEffectDepth;
     }
   });
+
 })();
