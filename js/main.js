@@ -8,21 +8,25 @@
   uploadFile.addEventListener(`change`, function () {
     imgUpload.classList.remove(`hidden`);
     body.classList.add(`modal-open`);
+    window.lockTab(imgUpload);
   });
+
+  function closeForm() {
+    imgUpload.classList.add(`hidden`);
+    body.classList.remove(`modal-open`);
+    window.cleanForm();
+    window.unlockTab();
+  }
 
   document.querySelector(`#upload-cancel`)
     .addEventListener(`click`, function () {
-      imgUpload.classList.add(`hidden`);
-      body.classList.remove(`modal-open`);
+      closeForm();
     });
   document.addEventListener(`keydown`, function (evt) {
     if (evt.keyCode === 27) {
-      imgUpload.classList.add(`hidden`);
-      body.classList.remove(`modal-open`);
+      closeForm();
     }
   });
-  // рисуем список изображений
-  // window.renderPicturesList(window.photos);
 
   // сообщение об успешной отправке
   const getSuccessMessage = function () {

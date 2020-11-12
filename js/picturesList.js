@@ -15,13 +15,9 @@
     userPicture.addEventListener(`click`, function (evt) {
       evt.preventDefault();
       window.showFullPhoto(photo);
-      // доступность
-      userPicture.addEventListener(`keydown`, function () {
-        evt.preventDefault();
-        if (evt.keyCode === 13) {
-          window.showFullPhoto(photo);
-        }
-      });
+      window.unlockTab();
+
+
     });
 
     return userPicture;

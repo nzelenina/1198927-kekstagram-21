@@ -191,8 +191,8 @@
 
   <!-- Шаблон изображения случайного пользователя -->
   <template id="picture">
-    <a href="#" class="picture">
-      <img class="picture__img" src="" width="200" height="200" alt="Случайная фотография" tabindex="1">
+    <a href="#" class="picture" tabindex="1">
+      <img class="picture__img" src="" width="200" height="200" alt="Случайная фотография" tabindex="0">
       <p class="picture__info">
         <span class="picture__comments"></span>
         <span class="picture__likes"></span>
@@ -232,6 +232,7 @@
     <div class="img-upload__message  img-upload__message--loading">Загружаем...</div>
   </template>
   <script src="js/util.js"></script>
+  <script src="js/lockTab.js"></script>
   <script src="js/upload.js"></script>
   <script src="js/load.js"></script>
   <script src="js/picturesList.js"></script>

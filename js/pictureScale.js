@@ -10,7 +10,7 @@
     const scale = zoomValue / 100;
     window.imgUploadPreview.style.transform = `scale(${scale})`;
   }
-
+  window.applyZoom = applyZoom;
   scaleControlBigger.addEventListener(`click`, function (evt) {
     evt.preventDefault();
     const currentValue = Number.parseInt(scaleControlValue.value, 10);

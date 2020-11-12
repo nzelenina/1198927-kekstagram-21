@@ -34,17 +34,23 @@
   window.renderComments = renderComments;
 
   /* закрытие большой картинки*/
-  const closeBigPicture = bigPicture.querySelector(`#picture-cancel`);
-  closeBigPicture.addEventListener(`click`, function () {
+  function closeBigPicture() {
     bigPicture.classList.add(`hidden`);
     document.body.classList.remove(`modal-open`);
+    window.unlockTab();
+  }
+
+  const bigPictureCloseButton = bigPicture.querySelector(`#picture-cancel`);
+  bigPictureCloseButton.addEventListener(`click`, function () {
+    closeBigPicture();
   });
+
   document.addEventListener(`keydown`, function (evt) {
     if (evt.keyCode === 27) {
-      bigPicture.classList.add(`hidden`);
-      document.body.classList.remove(`modal-open`);
+      closeBigPicture();
     }
   });
+
   const DISPLAY_COMMENTS_COUNT = 5;
 
   // функция, которая возвращает DOM-элементы скрытых комментариев
@@ -94,6 +100,7 @@
     descriptionElement.textContent = photo.description;
     bigPicture.classList.remove(`hidden`);
     document.body.classList.add(`modal-open`);
+    window.lockTab(bigPicture);
   };
 
   const socialCommentsLoader = document.querySelector(`.social__comments-loader`);
