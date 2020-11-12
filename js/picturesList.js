@@ -15,8 +15,6 @@
     userPicture.addEventListener(`click`, function (evt) {
       evt.preventDefault();
       window.showFullPhoto(photo);
-      window.unlockTab();
-
 
     });
 
