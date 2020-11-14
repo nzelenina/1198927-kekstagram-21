@@ -23,9 +23,8 @@
   form.addEventListener(`submit`, function (evt) {
 
     window.upload(new FormData(form), function () {
-      window.cleanForm();
+      window.closeForm();
       window.getSuccessMessage();
-      window.closeSuccessMessage();
     });
 
     evt.preventDefault();

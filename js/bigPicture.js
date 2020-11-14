@@ -66,7 +66,9 @@
     // если таковые имеются…
     if (hiddenComments.length > 0) {
       hiddenComments = Array.from(hiddenComments); // конвертируем NodesList в обычный массив
-
+      const commentsCount = document.querySelector(`.comments-count`);
+      commentsCount.textContent = hiddenComments.length;
+      // console.log(hiddenComments.length);
       // берём первые 5 элементов…
       const commentsToShow = hiddenComments.slice(0, DISPLAY_COMMENTS_COUNT);
 
@@ -87,6 +89,7 @@
         socialCommentsLoader.classList.add(`hidden`);
       }
     }
+
   };
 
   const showFullPhoto = function (photo) {
@@ -108,6 +111,7 @@
   // клик на кнопку
   socialCommentsLoader.addEventListener(`click`, function () {
     showNextComments();
+
   });
 
   window.showFullPhoto = showFullPhoto;

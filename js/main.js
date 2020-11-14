@@ -17,7 +17,7 @@
     window.cleanForm();
     window.unlockTab();
   }
-
+  window.closeForm = closeForm;
   document.querySelector(`#upload-cancel`)
     .addEventListener(`click`, function () {
       closeForm();
@@ -34,19 +34,14 @@
     const successPost = successPostTemplate.content.querySelector(`.success`).cloneNode(true);
     window.successPost = successPost;
     document.querySelector(`main`).appendChild(window.successPost);
-  };
-  window.getSuccessMessage = getSuccessMessage;
-  // закрытие сообщения
-  const closeSuccessMessage = function () {
     const successButton = document.querySelector(`.success__button`);
     successButton.addEventListener(`click`, function (evt) {
       evt.preventDefault();
       document.querySelector(`main`).removeChild(window.successPost);
     });
   };
-  window.closeSuccessMessage = closeSuccessMessage;
+  window.getSuccessMessage = getSuccessMessage;
 
-  // сообщение об ошибке
   const getErrorPost = function () {
     const errorPostTemplate = document.querySelector(`#error`);
     const errorPost = errorPostTemplate.content.querySelector(`.error`).cloneNode(true);

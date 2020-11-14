@@ -103,7 +103,6 @@
   });
   // сброс значений при закрытии окна формы
   window.cleanForm = function () {
-    window.imgUpload.classList.add(`hidden`);
     document.getElementById(`effect-none`).click();
     window.applyZoom(100);
     window.effectLevel.classList.add(`hidden`);
