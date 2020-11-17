@@ -28,7 +28,7 @@
     }
   });
 
-  // сообщение об успешной отправке
+/*  // сообщение об успешной отправке
   const getSuccessMessage = function() {
     const successPostTemplate = document.querySelector(`#success`);
     const successPost = successPostTemplate.content.querySelector(`.success`).cloneNode(true);
@@ -55,6 +55,35 @@
       document.querySelector(`main`).removeChild(window.errorPost);
     });
   };
-  window.closeErrorMessage = closeErrorMessage;
+  window.closeErrorMessage = closeErrorMessage;*/
+const successMessageCloseHandler = function(evt) {
+evt.preventDefault();
+document.querySelector(`main`).removeChild(window.successPost);
+document.removeEventListener(`click`, successMessageCloseHandler)
+}
+// сообщение об успешной отправке
+const getSuccessMessage = function() {
+const successPostTemplate = document.querySelector(`#success`);
+const successPost = successPostTemplate.content.querySelector(`.success`).cloneNode(true);
+window.successPost = successPost;
+document.querySelector(`main`).appendChild(window.successPost);
+document.addEventListener(`click`, successMessageCloseHandler);
+};
+window.getSuccessMessage = getSuccessMessage;
 
+const errorMessageCloseHandler = function() {
+evt.preventDefault();
+document.querySelector(`main`).removeChild(window.errorPost);
+document.addEventListener(`click`, errorMessageCloseHandler);
+}
+
+const getErrorPost = function() {
+const errorPostTemplate = document.querySelector(`#error`);
+const errorPost = errorPostTemplate.content.querySelector(`.error`).cloneNode(true);
+window.errorPost = errorPost;
+document.querySelector(`main`).appendChild(window.errorPost);
+
+document.addEventListener(`click`, errorMessageCloseHandler);
+};
+window.getErrorPost = getErrorPost;
 })();
