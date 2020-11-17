@@ -1,13 +1,13 @@
 'use strict';
 
-(function() {
+(function () {
   const URL = `https://21.javascript.pages.academy/kekstagram`;
 
-  window.upload = function(data, onSuccess, onError) {
+  window.upload = function (data, onSuccess, onError) {
     const xhr = new XMLHttpRequest();
     xhr.responseType = `json`;
 
-    xhr.addEventListener(`load`, function() {
+    xhr.addEventListener(`load`, function () {
       if (xhr.status === 200) {
         onSuccess(xhr.response);
       } else {
@@ -20,17 +20,17 @@
   };
   // отправка формы
   const form = document.querySelector(`#upload-select-image`);
-  form.addEventListener(`submit`, function(evt) {
+  form.addEventListener(`submit`, function (evt) {
 
-    window.upload(new FormData(form), function() {
-        window.closeForm();
-        window.getSuccessMessage();
+    window.upload(new FormData(form), function () {
+      window.closeForm();
+      window.getSuccessMessage();
 
-      },
-      function() {
-        window.closeForm();
-        window.getErrorPost();
-      });
+    },
+    function () {
+      window.closeForm();
+      window.getErrorPost();
+    });
     evt.preventDefault();
   });
 

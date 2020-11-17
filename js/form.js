@@ -108,5 +108,6 @@
     window.effectLevel.classList.add(`hidden`);
     window.inputHashtag.value = ``;
     window.inputComment.value = ``;
+    window.uploadFile.value = ``;
   };
 })();
