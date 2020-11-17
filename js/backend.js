@@ -1,14 +1,15 @@
 'use strict';
 
 (function () {
+  const DATA_URL = `https://21.javascript.pages.academy/kekstagram/data`;
+  const UPLOAD_URL = `https://21.javascript.pages.academy/kekstagram`;
+  const TIMEOUT_IN_MS = 10000;
 
   const load = function (onSuccess, onError) {
-    const URL = `https://21.javascript.pages.academy/kekstagram/data`;
-    const TIMEOUT_IN_MS = 10000;
     const xhr = new XMLHttpRequest();
     xhr.responseType = `json`;
 
-    xhr.open(`GET`, URL);
+    xhr.open(`GET`, DATA_URL);
 
     xhr.addEventListener(`load`, function () {
       if (xhr.status >= 200 && xhr.status < 300) {
@@ -17,6 +18,7 @@
         onError(xhr.response);
       }
     });
+
     xhr.addEventListener(`timeout`, function () {
       onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
     });
@@ -26,11 +28,8 @@
   };
 
   const upload = function (data, onSuccess, onError) {
-    const URL = `https://21.javascript.pages.academy/kekstagram`;
-
     const xhr = new XMLHttpRequest();
     xhr.responseType = `json`;
-
 
     xhr.addEventListener(`load`, function () {
       if (xhr.status === 200) {
@@ -40,9 +39,10 @@
       }
     });
 
-    xhr.open(`POST`, URL);
+    xhr.open(`POST`, UPLOAD_URL);
     xhr.send(data);
   };
+
   window.backend = {
     load,
     upload
