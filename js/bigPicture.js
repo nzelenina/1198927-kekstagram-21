@@ -29,6 +29,8 @@
 
     allSocialComment.textContent = ``;
     allSocialComment.appendChild(fragmentComment);
+    const commentsCount = document.querySelector(`.comments-count`);
+    commentsCount.textContent = comments.length;
   };
 
   window.renderComments = renderComments;
@@ -57,19 +59,18 @@
   const findHiddenComments = function() {
     return allSocialComment.querySelectorAll(`.social__comment.hidden`);
   };
-
+  const findVisibleComments = function() {
+    return allSocialComment.querySelectorAll(`.social__comment:not(.hidden)`);
+  };
 
   // функция, которая показывает следущие N комментариев
   const showNextComments = function() {
     // находим невидимые комментарии
     let hiddenComments = findHiddenComments();
-    const commentsCount = document.querySelector(`.comments-count`);
-    commentsCount.textContent = hiddenComments.length;
+    const socialCommentCount = document.querySelector(`.social__comment-count`);
     // если таковые имеются…
     if (hiddenComments.length > 0) {
       hiddenComments = Array.from(hiddenComments); // конвертируем NodesList в обычный массив
-
-
       // берём первые 5 элементов…
       const commentsToShow = hiddenComments.slice(0, DISPLAY_COMMENTS_COUNT);
 
@@ -89,8 +90,9 @@
         // если скрытых нет, то добавить класс hidden
         socialCommentsLoader.classList.add(`hidden`);
       }
+      const visibleComments = findVisibleComments();
+      document.querySelector('.comments-visible').textContent = visibleComments.length;
     }
-
   };
 
   const showFullPhoto = function(photo) {
