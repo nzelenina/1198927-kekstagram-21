@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  const DISPLAY_COMMENTS_COUNT = 5;
   const bigPicture = document.querySelector(`.big-picture`);
 
   const bigPhoto = bigPicture.querySelector(`#big-photo`);
@@ -36,7 +37,8 @@
   window.renderComments = renderComments;
 
   /* закрытие большой картинки*/
-  function closeBigPicture() {
+  const closeBigPicture = function () {
+  //function closeBigPicture() {
     bigPicture.classList.add(`hidden`);
     document.body.classList.remove(`modal-open`);
     window.unlockTab();
@@ -52,8 +54,6 @@
       closeBigPicture();
     }
   });
-
-  const DISPLAY_COMMENTS_COUNT = 5;
 
   // функция, которая возвращает DOM-элементы скрытых комментариев
   const findHiddenComments = function () {

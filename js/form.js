@@ -1,5 +1,5 @@
 'use strict';
-(function () {
+(function() {
   /* функция проверки на дубликаты*/
   const findArrayDuplicates = (arr) => {
     let sortedArr = arr.slice().sort();
@@ -15,7 +15,7 @@
   /* валидация хэштегов*/
   const inputHashtag = document.querySelector(`.text__hashtags`);
   window.inputHashtag = inputHashtag;
-  inputHashtag.addEventListener(`input`, function (evt) {
+  inputHashtag.addEventListener(`input`, function(evt) {
     const textHashtag = document.querySelector(`.text__hashtags`).value.trim();
     evt.preventDefault();
     const hashtags = textHashtag.split(` `);
@@ -76,7 +76,7 @@
   // валидация комментариев
   const inputComment = document.querySelector(`.text__description`);
   window.inputComment = inputComment;
-  inputComment.addEventListener(`input`, function (evt) {
+  inputComment.addEventListener(`input`, function(evt) {
     evt.preventDefault();
     const textComment = inputComment.value.trim();
     const userComment = textComment.split(``);
@@ -102,7 +102,7 @@
     }
   });
   // сброс значений при закрытии окна формы
-  window.cleanForm = function () {
+  window.cleanForm = function() {
     document.getElementById(`effect-none`).click();
     window.applyZoom(100);
     window.effectLevel.classList.add(`hidden`);
@@ -110,4 +110,19 @@
     window.inputComment.value = ``;
     window.uploadFile.value = ``;
   };
+  // отправка формы
+  const form = document.querySelector(`#upload-select-image`);
+  form.addEventListener(`submit`, function(evt) {
+
+    window.backend.upload(new FormData(form), function() {
+        window.closeForm();
+        window.getSuccessMessage();
+
+      },
+      function() {
+        window.closeForm();
+        window.getErrorPost();
+      });
+    evt.preventDefault();
+  });
 })();
