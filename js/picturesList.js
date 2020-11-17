@@ -1,10 +1,10 @@
 'use strict';
 
-(function() {
+(function () {
   const allUserPictures = document.querySelector(`.pictures`);
   const userPictureTemplate = document.querySelector(`#picture`).content.querySelector(`.picture`);
 
-  const renderUserPicture = function(photo) {
+  const renderUserPicture = function (photo) {
     const userPicture = userPictureTemplate.cloneNode(true);
     const pictureImg = userPicture.querySelector(`.picture__img`);
     const image = photo.url;
@@ -12,7 +12,7 @@
 
     userPicture.querySelector(`.picture__likes`).textContent = photo.likes;
     userPicture.querySelector(`.picture__comments`).textContent = photo.comments.length;
-    userPicture.addEventListener(`click`, function(evt) {
+    userPicture.addEventListener(`click`, function (evt) {
       evt.preventDefault();
       window.showFullPhoto(photo);
 
@@ -23,7 +23,7 @@
   window.renderUserPicture = renderUserPicture;
   const fragment = document.createDocumentFragment();
   window.fragment = fragment;
-  const renderPicturesList = function(photos) {
+  const renderPicturesList = function (photos) {
 
     for (let i = 0; i < photos.length; i++) {
       fragment.appendChild(renderUserPicture(photos[i]));
@@ -40,14 +40,14 @@
     }
   }
   window.removePictures = removePictures;
-  //загрузка
-  window.backend.load(function(response) {
+  // загрузка
+  window.backend.load(function (response) {
     window.photos = response;
     (window.renderPicturesList(response));
     // появляется меню фильтров
     window.imgFilter.classList.remove(`img-filters--inactive`);
 
-  }, function() {
+  }, function () {
     window.errorHandler(`произошла ошибка`);
   });
 })();

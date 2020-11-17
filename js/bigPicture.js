@@ -38,11 +38,11 @@
 
   /* закрытие большой картинки*/
   const closeBigPicture = function () {
-  //function closeBigPicture() {
+    // function closeBigPicture() {
     bigPicture.classList.add(`hidden`);
     document.body.classList.remove(`modal-open`);
     window.unlockTab();
-  }
+  };
 
   const bigPictureCloseButton = bigPicture.querySelector(`#picture-cancel`);
   bigPictureCloseButton.addEventListener(`click`, function () {

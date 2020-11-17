@@ -1,8 +1,8 @@
 'use strict';
 
-(function() {
+(function () {
 
-  const load = function(onSuccess, onError) {
+  const load = function (onSuccess, onError) {
     const URL = `https://21.javascript.pages.academy/kekstagram/data`;
     const TIMEOUT_IN_MS = 10000;
     const xhr = new XMLHttpRequest();
@@ -10,14 +10,14 @@
 
     xhr.open(`GET`, URL);
 
-    xhr.addEventListener(`load`, function() {
+    xhr.addEventListener(`load`, function () {
       if (xhr.status >= 200 && xhr.status < 300) {
         onSuccess(xhr.response);
       } else {
         onError(xhr.response);
       }
     });
-    xhr.addEventListener(`timeout`, function() {
+    xhr.addEventListener(`timeout`, function () {
       onError(`Запрос не успел выполниться за ` + xhr.timeout + `мс`);
     });
 
@@ -25,14 +25,14 @@
     xhr.send();
   };
 
-  const upload = function(data, onSuccess, onError) {
+  const upload = function (data, onSuccess, onError) {
     const URL = `https://21.javascript.pages.academy/kekstagram`;
 
     const xhr = new XMLHttpRequest();
     xhr.responseType = `json`;
 
 
-    xhr.addEventListener(`load`, function() {
+    xhr.addEventListener(`load`, function () {
       if (xhr.status === 200) {
         onSuccess(xhr.response);
       } else {
@@ -46,5 +46,5 @@
   window.backend = {
     load,
     upload
-  }
+  };
 })();
