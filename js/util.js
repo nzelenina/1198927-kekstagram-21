@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  const KEY_ENTER = 27;
+  window.KEY_ENTER = KEY_ENTER;
+  const KEY_TAB = 9;
+  window.KEY_TAB = KEY_TAB;
   function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }

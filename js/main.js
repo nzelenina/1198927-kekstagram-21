@@ -24,7 +24,7 @@
       closeForm();
     });
   document.addEventListener(`keydown`, function (evt) {
-    if (evt.keyCode === 27 && !evt.target.matches(`.text__hashtags`) && !evt.target.matches(`.text__description`)) {
+    if (evt.keyCode === window.KEY_ENTER && !evt.target.matches(`.text__hashtags`) && !evt.target.matches(`.text__description`)) {
       closeForm();
     }
   });

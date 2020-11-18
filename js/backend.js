@@ -4,6 +4,8 @@
   const DATA_URL = `https://21.javascript.pages.academy/kekstagram/data`;
   const UPLOAD_URL = `https://21.javascript.pages.academy/kekstagram`;
   const TIMEOUT_IN_MS = 10000;
+  const SUCCESS_COD = 200;
+  const ACT_FOREND = 300;
 
   const load = function (onSuccess, onError) {
     const xhr = new XMLHttpRequest();
@@ -12,7 +14,7 @@
     xhr.open(`GET`, DATA_URL);
 
     xhr.addEventListener(`load`, function () {
-      if (xhr.status >= 200 && xhr.status < 300) {
+      if (xhr.status >= SUCCESS_COD && xhr.status < ACT_FOREND) {
         onSuccess(xhr.response);
       } else {
         onError(xhr.response);
@@ -32,7 +34,7 @@
     xhr.responseType = `json`;
 
     xhr.addEventListener(`load`, function () {
-      if (xhr.status === 200) {
+      if (xhr.status === SUCCESS_COD) {
         onSuccess(xhr.response);
       } else {
         onError(xhr.response);

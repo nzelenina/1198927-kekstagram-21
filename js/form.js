@@ -1,5 +1,7 @@
 'use strict';
 (function () {
+  const SYMBOL_HASHTAG = 20;
+  const QUANTITY_HASHTAG = 5;
   /* функция проверки на дубликаты*/
   const findArrayDuplicates = (arr) => {
     let sortedArr = arr.slice().sort();
@@ -37,7 +39,7 @@
       } else {
         inputHashtag.setCustomValidity(``);
       }
-      if (hashtagsValuelength > 20) {
+      if (hashtagsValuelength > SYMBOL_HASHTAG) {
         inputHashtag.setCustomValidity(`не больше 20 символов`);
 
         break;
@@ -45,7 +47,7 @@
         inputHashtag.setCustomValidity(``);
       }
     }
-    if (hashtagsLength > 5) {
+    if (hashtagsLength > QUANTITY_HASHTAG) {
       inputHashtag.setCustomValidity(`не больше 5 хэштегов`);
 
     }

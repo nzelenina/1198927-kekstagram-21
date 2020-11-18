@@ -6,7 +6,7 @@
   // обработчик события нажатия кнопки
   const tabKeyHandler = function (evt) {
     // если надали tab
-    if (evt.keyCode === 9) {
+    if (evt.keyCode === window.KEY_TAB) {
       evt.preventDefault();
 
       // отфильтровываем скрытые элементы
